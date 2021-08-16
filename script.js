@@ -22,17 +22,20 @@ const shirtDesign = document.getElementById('design');
 const colorShirt = document.getElementById('color');
 const shirtColorOptions = document.getElementById('color').children;
 
+console.log(shirtColorOptions);
+
+
 //make default of color element to be greyed out
 colorShirt.disabled = true;
 
 shirtDesign.addEventListener('change', (e) => {
-    colorShirt.disabled = false;
-        for ( i = 1; i < shirtColorOptions.length; i++) {
-            const selectedDesign = e.target.value;
-            console.log(selectedDesign);
-            const dataThemeAttribute = shirtColorOptions[i].getAttribute('data-theme');
-            console.log(dataThemeAttribute);
-            //step 5 sub step five is where I left off. 
-            //having a hard time establishing the right vars in shirt color and design
-        }
-});
+    colorShirt.disabled = false
+    for( i = 0; i < shirtColorOptions.length; i++) {
+        const selectedDesign = e.target.value;
+        console.log(selectedDesign);
+        const dataTheme = colorShirt.getAttribute('data-theme');
+        console.log(dataTheme);
+    }
+})
+ 
+
