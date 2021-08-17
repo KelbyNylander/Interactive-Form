@@ -30,9 +30,7 @@ shirtDesign.addEventListener('change', (e) => {
     colorShirt.disabled = false
     for( i = 1; i < shirtColorOptions.length; i++) {
         const selectedDesign = e.target.value;
-        console.log(selectedDesign);
         const dataTheme = colorShirt[i].getAttribute('data-theme');;
-        console.log(dataTheme);
         if ( selectedDesign === dataTheme) {
             shirtColorOptions[i].hidden = false;
             shirtColorOptions[i].setAttribute('selected', true);
@@ -43,20 +41,18 @@ shirtDesign.addEventListener('change', (e) => {
     }
 })
  
-//variables for activites fieldset 
-const activites = document.getElementById('activities');
+//variables for activities fieldset 
+const activities = document.getElementById('activities');
 const totalCost = document.getElementById('activities-cost');
 let currentCost = 0;
 
-//event listener that adds up total charges of activites
-activites.addEventListener('change', (e) => {
+//event listener that adds up total charges of activities
+activities.addEventListener('change', (e) => {
     const dataCost = +e.target.getAttribute('data-cost');
         if ( e.target.checked) {
             currentCost += dataCost;
-            console.log(currentCost);
         } else {
             currentCost -= dataCost;
-            console.log(currentCost);
         }
     totalCost.textContent = `Total: ${currentCost}`;
 })
@@ -74,7 +70,6 @@ bitcoinOption.hidden = true;
 //event listener that displays info for selected payment option
 paymentType.addEventListener('change', (e) => {
     const selectedPaymenyType = e.target.value
-    console.log(selectedPaymenyType);
         if (selectedPaymenyType === 'paypal') {
             creditCardOption.hidden = true;
             bitcoinOption.hidden = true;
@@ -89,3 +84,77 @@ paymentType.addEventListener('change', (e) => {
             bitcoinOption.hidden = true;
         }
 })
+
+//form validation variables
+const nameInput = document.getElementById('name');
+const email = document.getElementById('email');
+const cardNumber = document.getElementById('cc-num');
+const zipCode = document.getElementById('zip');
+const cvv = document.getElementById('cvv');
+const form = document.querySelector('form');
+
+//submit event listner
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if ( isNameValid() && isEmailValid() && isActivitiesValid() && isPaymentValid())
+    console.log('hi');
+    else {
+        console.log('bye');
+    }
+})
+
+//functions to test if inputs are valid
+function isNameValid() {
+    return /^[\w]+\s*[\w]+$/.test(nameInput.value);
+}
+function isEmailValid() {
+    return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email.value);
+}
+function isActivitiesValid () {
+    let activities = false;
+    if ( currentCost !== 0)
+        activities = true;
+        return activities;
+}
+//functions to test if regexs are valid within the CC payment selection
+function isCCNumebrValid () {
+    return /^\d{13,16}$/.test(cardNumber.value)
+}
+function isZipValid () {
+    return /^\d{5}$/.test(zipCode.value)
+}
+function isCvvValid () {
+    return /^\d{3}$/.test(cvv.value)
+}
+//funtion to make sure that submission is still possible if other payment method is selected
+function isPaymentValid () {
+    if (paymentType.value === 'credit-card') {
+        if (isCCNumebrValid() && isZipValid() && isCvvValid()) 
+            return true
+        else {
+            return false
+        }
+    } else {
+        return true
+    }
+}
+
+//Accessibility 
+let activitiesDiv = document.getElementById('activities-box');
+let activitiesCheckBox = document.querySelectorAll('input[type="checkbox"]');
+console.log(activitiesDiv);
+console.log(activitiesCheckBox[1].parentElement);
+activitiesCheckBox[6].parentElement.className += 'focus';
+
+
+
+// for ( i = 0; i < activitiesCheckBox.length; i++) {
+//     activitiesCheckBox[i].addEventListener('focus', (e) => {
+//         e.target.activitiesCheckBox[i].className += 'focus';
+//         console.log('hi');
+//     });
+//     activitiesCheckBox[i].addEventListener('blur', (e) => {
+//         e.target.activitiesCheckBox[i].removeAttribute("class", "focus");
+//         console.log('bye');
+//     });
+// }
