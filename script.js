@@ -142,19 +142,12 @@ function isPaymentValid () {
 //Accessibility 
 let activitiesDiv = document.getElementById('activities-box');
 let activitiesCheckBox = document.querySelectorAll('input[type="checkbox"]');
-console.log(activitiesDiv);
-console.log(activitiesCheckBox[1].parentElement);
-activitiesCheckBox[6].parentElement.className += 'focus';
 
-
-
-// for ( i = 0; i < activitiesCheckBox.length; i++) {
-//     activitiesCheckBox[i].addEventListener('focus', (e) => {
-//         e.target.activitiesCheckBox[i].className += 'focus';
-//         console.log('hi');
-//     });
-//     activitiesCheckBox[i].addEventListener('blur', (e) => {
-//         e.target.activitiesCheckBox[i].removeAttribute("class", "focus");
-//         console.log('bye');
-//     });
-// }
+for ( i = 0; i < activitiesCheckBox.length; i++) {
+    activitiesCheckBox[i].addEventListener('focus', (e) => {
+        e.target.parentNode.className += 'focus';
+    });
+    activitiesCheckBox[i].addEventListener('blur', (e) => {
+        e.target.parentNode.removeAttribute("class", "focus");
+    });
+}
