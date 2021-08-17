@@ -43,3 +43,49 @@ shirtDesign.addEventListener('change', (e) => {
     }
 })
  
+//variables for activites fieldset 
+const activites = document.getElementById('activities');
+const totalCost = document.getElementById('activities-cost');
+let currentCost = 0;
+
+//event listener that adds up total charges of activites
+activites.addEventListener('change', (e) => {
+    const dataCost = +e.target.getAttribute('data-cost');
+        if ( e.target.checked) {
+            currentCost += dataCost;
+            console.log(currentCost);
+        } else {
+            currentCost -= dataCost;
+            console.log(currentCost);
+        }
+    totalCost.textContent = `Total: ${currentCost}`;
+})
+
+//variables for credit card selection
+const paymentType = document.getElementById('payment');
+const creditCardOption = document.getElementById('credit-card');
+const payPalOption = document.getElementById('paypal')
+const bitcoinOption = document.getElementById('bitcoin');
+
+//default hide paypal and bitcoin options
+payPalOption.hidden = true;
+bitcoinOption.hidden = true;
+
+//event listener that displays info for selected payment option
+paymentType.addEventListener('change', (e) => {
+    const selectedPaymenyType = e.target.value
+    console.log(selectedPaymenyType);
+        if (selectedPaymenyType === 'paypal') {
+            creditCardOption.hidden = true;
+            bitcoinOption.hidden = true;
+            payPalOption.hidden = false;
+        } if (selectedPaymenyType === 'bitcoin') {
+            creditCardOption.hidden = true;
+            payPalOption.hidden = true;
+            bitcoinOption.hidden = false;
+        } if (selectedPaymenyType === 'credit-card') {
+            creditCardOption.hidden = false;
+            payPalOption.hidden = true;
+            bitcoinOption.hidden = true;
+        }
+})
