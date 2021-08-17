@@ -22,20 +22,24 @@ const shirtDesign = document.getElementById('design');
 const colorShirt = document.getElementById('color');
 const shirtColorOptions = document.getElementById('color').children;
 
-console.log(shirtColorOptions);
-
-
 //make default of color element to be greyed out
 colorShirt.disabled = true;
 
+//event listener that hides colors not available in a style
 shirtDesign.addEventListener('change', (e) => {
     colorShirt.disabled = false
-    for( i = 0; i < shirtColorOptions.length; i++) {
+    for( i = 1; i < shirtColorOptions.length; i++) {
         const selectedDesign = e.target.value;
         console.log(selectedDesign);
-        const dataTheme = colorShirt.getAttribute('data-theme');
+        const dataTheme = colorShirt[i].getAttribute('data-theme');;
         console.log(dataTheme);
+        if ( selectedDesign === dataTheme) {
+            shirtColorOptions[i].hidden = false;
+            shirtColorOptions[i].setAttribute('selected', true);
+        } if ( selectedDesign !== dataTheme) {
+            shirtColorOptions[i].hidden = true;
+            shirtColorOptions[i].removeAttribute('selected', false);
+        }
     }
 })
  
-
