@@ -95,20 +95,43 @@ const form = document.querySelector('form');
 
 //submit event listner
 form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if ( isNameValid() && isEmailValid() && isActivitiesValid() && isPaymentValid())
-    console.log('hi');
-    else {
-        console.log('bye');
+    
+    if ( isNameValid() && isEmailValid() && isActivitiesValid() && isPaymentValid()) {
+        console.log('form submited');
+    } else {
+        isNameValid();
+        isEmailValid(); 
+        isActivitiesValid();
+        isPaymentValid();
+        e.preventDefault();
+        console.log('Incorrect user inputs');
     }
 })
 
+
+
+// nameInput.parentElement.className = 'valid';
+
 //functions to test if inputs are valid
 function isNameValid() {
-    return /^[\w]+\s*[\w]+$/.test(nameInput.value);
+    const nameRegEx = /^[\w]+\s*[\w]+$/.test(nameInput.value);
+    if (nameRegEx == false) {
+        nameInput.parentElement.className = 'not-valid';
+    } if (nameRegEx == true) {
+        nameInput.parentElement.removeAttribute('class', 'not-valid');
+        nameInput.parentElement.className = 'valid';
+    }
+    return nameRegEx
 }
 function isEmailValid() {
-    return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email.value);
+    const emailRegEx =  /^[^@]+@[^@.]+\.[a-z]+$/i.test(email.value);
+    if (emailRegEx == false) {
+        email.parentElement.className = 'not-valid';
+    } if (emailRegEx == true) {
+        email.parentElement.removeAttribute('class', 'not-valid');
+        email.parentElement.className = 'valid';
+    }
+    return emailRegEx
 }
 function isActivitiesValid () {
     let activities = false;
@@ -116,24 +139,56 @@ function isActivitiesValid () {
         activities = true;
         return activities;
 }
+
 //functions to test if regexs are valid within the CC payment selection
 function isCCNumebrValid () {
-    return /^\d{13,16}$/.test(cardNumber.value)
+    const CCNumberRegEx = /^\d{13,16}$/.test(cardNumber.value)
+    if (CCNumberRegEx == false) {
+        cardNumber.parentElement.className = 'not-valid';
+    } if (CCNumberRegEx == true) {
+        cardNumber.parentElement.removeAttribute('class', 'not-valid');
+        cardNumber.parentElement.className = 'valid';
+    }
+    return CCNumberRegEx
+
 }
 function isZipValid () {
-    return /^\d{5}$/.test(zipCode.value)
+    const zipRegEx = /^\d{5}$/.test(zipCode.value)
+    if (zipRegEx == false) {
+        zipCode.parentElement.className = 'not-valid';
+    } if (zipRegEx == true) {
+        zipCode.parentElement.removeAttribute('class', 'not-valid');
+        zipCode.parentElement.className = 'valid';
+    }
+    return zipRegEx
+ 
 }
 function isCvvValid () {
-    return /^\d{3}$/.test(cvv.value)
+    const CvvRegEx = /^\d{3}$/.test(cvv.value)
+    if (CvvRegEx == false) {
+        cvv.parentElement.className = 'not-valid';
+    } if (CvvRegEx == true) {
+        cvv.parentElement.removeAttribute('class', 'not-valid');
+        cvv.parentElement.className = 'valid';
+    }
+    return CvvRegEx
+
 }
+
+// paymentType.parentElement.className = 'not-valid';
 //funtion to make sure that submission is still possible if other payment method is selected
 function isPaymentValid () {
     if (paymentType.value === 'credit-card') {
         if (isCCNumebrValid() && isZipValid() && isCvvValid()) 
             return true
         else {
+            isCCNumebrValid();
+            isZipValid();
+            isCvvValid();
             return false
         }
+    } if (paymentType.value === 'select method') { 
+        paymentType.parentElement.className = 'not-valid';
     } else {
         return true
     }
