@@ -108,10 +108,6 @@ form.addEventListener('submit', (e) => {
     }
 })
 
-
-
-// nameInput.parentElement.className = 'valid';
-
 //functions to test if inputs are valid
 function isNameValid() {
     const nameRegEx = /^[\w]+\s*[\w]+$/.test(nameInput.value);
@@ -175,21 +171,22 @@ function isCvvValid () {
 
 }
 
-// paymentType.parentElement.className = 'not-valid';
 //funtion to make sure that submission is still possible if other payment method is selected
 function isPaymentValid () {
     if (paymentType.value === 'credit-card') {
-        if (isCCNumebrValid() && isZipValid() && isCvvValid()) 
-            return true
-        else {
-            isCCNumebrValid();
-            isZipValid();
-            isCvvValid();
-            return false
-        }
+            paymentType.parentElement.classList.remove('not-valid');
+            if (isCCNumebrValid() && isZipValid() && isCvvValid()) 
+                return true
+            else {
+                isCCNumebrValid();
+                isZipValid();
+                isCvvValid();
+                return false
+            }
     } if (paymentType.value === 'select method') { 
-        paymentType.parentElement.className = 'not-valid';
+        paymentType.parentElement.classList.add('not-valid');
     } else {
+        paymentType.parentElement.classList.remove('not-valid');
         return true
     }
 }
