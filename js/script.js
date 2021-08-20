@@ -117,8 +117,10 @@ function isNameValid() {
     const nameRegEx = /^[\w]+\s*[\w]+$/.test(nameInput.value);
     if (nameRegEx == false) {
         nameInput.parentElement.className = 'not-valid';
+        document.getElementById('name-hint').style.display = 'contents';
     } if (nameRegEx == true) {
         nameInput.parentElement.removeAttribute('class', 'not-valid');
+        document.getElementById('name-hint').style.display = 'none';
         nameInput.parentElement.className = 'valid';
     }
     return nameRegEx
@@ -127,8 +129,10 @@ function isEmailValid() {
     const emailRegEx =  /^[^@]+@[^@.]+\.[a-z]+$/i.test(email.value);
     if (emailRegEx == false) {
         email.parentElement.className = 'not-valid';
+        document.getElementById('email-hint').style.display = 'contents';
     } if (emailRegEx == true) {
         email.parentElement.removeAttribute('class', 'not-valid');
+        document.getElementById('email-hint').style.display = 'none';
         email.parentElement.className = 'valid';
     }
     return emailRegEx
@@ -136,9 +140,11 @@ function isEmailValid() {
 
 function isActivitiesValid () {
             activities.classList.add('not-valid');
+            document.getElementById('activities-hint').style.display = 'contents';
         if ( currentCost !== 0) {
             activities.classList.add('valid');
             activities.classList.remove('not-valid');
+            document.getElementById('activities-hint').style.display = 'none';
             return true
         }
     }
@@ -148,8 +154,10 @@ function isCCNumebrValid () {
     const CCNumberRegEx = /^\d{13,16}$/.test(cardNumber.value)
     if (CCNumberRegEx == false) {
         cardNumber.parentElement.className = 'not-valid';
+        document.getElementById('cc-hint').style.display = 'contents';
     } if (CCNumberRegEx == true) {
         cardNumber.parentElement.removeAttribute('class', 'not-valid');
+        document.getElementById('cc-hint').style.display = 'none';
         cardNumber.parentElement.className = 'valid';
     }
     return CCNumberRegEx
@@ -158,8 +166,10 @@ function isZipValid () {
     const zipRegEx = /^\d{5}$/.test(zipCode.value)
     if (zipRegEx == false) {
         zipCode.parentElement.className = 'not-valid';
+        document.getElementById('zip-hint').style.display = 'contents';
     } if (zipRegEx == true) {
         zipCode.parentElement.removeAttribute('class', 'not-valid');
+        document.getElementById('zip-hint').style.display = 'none';
         zipCode.parentElement.className = 'valid';
     }
     return zipRegEx
@@ -168,8 +178,10 @@ function isCvvValid () {
     const CvvRegEx = /^\d{3}$/.test(cvv.value)
     if (CvvRegEx == false) {
         cvv.parentElement.className = 'not-valid';
+        document.getElementById('cvv-hint').style.display = 'contents';
     } if (CvvRegEx == true) {
         cvv.parentElement.removeAttribute('class', 'not-valid');
+        document.getElementById('cvv-hint').style.display = 'none';
         cvv.parentElement.className = 'valid';
     }
     return CvvRegEx
