@@ -62,10 +62,14 @@ const paymentType = document.getElementById('payment');
 const creditCardOption = document.getElementById('credit-card');
 const payPalOption = document.getElementById('paypal')
 const bitcoinOption = document.getElementById('bitcoin');
+const selectPaymentMethod = document.getElementById('payment')
 
 //default hide paypal and bitcoin options
 payPalOption.hidden = true;
 bitcoinOption.hidden = true;
+
+//select credit card option on page load
+selectPaymentMethod.children[1].setAttribute('selected', true);
 
 //event listener that displays info for selected payment option
 paymentType.addEventListener('change', (e) => {
@@ -99,11 +103,11 @@ form.addEventListener('submit', (e) => {
     if ( isNameValid() && isEmailValid() && isActivitiesValid() && isPaymentValid()) {
         console.log('form submited');
     } else {
+        e.preventDefault();
         isNameValid();
         isEmailValid(); 
-        isActivitiesValid();
         isPaymentValid();
-        e.preventDefault();
+        isActivitiesValid();
         console.log('Incorrect user inputs');
     }
 })
@@ -129,12 +133,14 @@ function isEmailValid() {
     }
     return emailRegEx
 }
+
 function isActivitiesValid () {
-    let activities = false;
-    if ( currentCost !== 0)
-        activities = true;
-        return activities;
-}
+            activities.classList.add('not-valid');
+        if ( currentCost !== 0) {
+            activities.classList.add('valid');
+            activities.classList.remove('not-valid');
+        }
+    }
 
 //functions to test if regexs are valid within the CC payment selection
 function isCCNumebrValid () {
@@ -146,7 +152,6 @@ function isCCNumebrValid () {
         cardNumber.parentElement.className = 'valid';
     }
     return CCNumberRegEx
-
 }
 function isZipValid () {
     const zipRegEx = /^\d{5}$/.test(zipCode.value)
@@ -157,7 +162,6 @@ function isZipValid () {
         zipCode.parentElement.className = 'valid';
     }
     return zipRegEx
- 
 }
 function isCvvValid () {
     const CvvRegEx = /^\d{3}$/.test(cvv.value)
@@ -168,7 +172,6 @@ function isCvvValid () {
         cvv.parentElement.className = 'valid';
     }
     return CvvRegEx
-
 }
 
 //funtion to make sure that submission is still possible if other payment method is selected
@@ -191,7 +194,7 @@ function isPaymentValid () {
     }
 }
 
-//Accessibility 
+//Accessibility added for tabbing though elements
 let activitiesDiv = document.getElementById('activities-box');
 let activitiesCheckBox = document.querySelectorAll('input[type="checkbox"]');
 
