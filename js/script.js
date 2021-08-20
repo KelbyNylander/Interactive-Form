@@ -139,6 +139,7 @@ function isActivitiesValid () {
         if ( currentCost !== 0) {
             activities.classList.add('valid');
             activities.classList.remove('not-valid');
+            return true
         }
     }
 
